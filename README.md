@@ -48,9 +48,14 @@ From Current Directory.
 docker build -t fluiddb:latest .
 ```
 
-### Run Docker Container
+### Run Docker Locally Built Container
 ```
 docker run -t --rm -p 6375:6375 fluiddb
+```
+
+### Run Docker from Docker Hub
+```
+docker run -t --rm -p 6375:6375 fluidtdev/fluiddb:1.0.0-alpha
 ```
 
 ## Code Contributions
