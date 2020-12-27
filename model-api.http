@@ -1,0 +1,60 @@
+### Variables
+@Schema = http
+@Host = localhost
+@Port = 3000
+@Model = test
+@BasicAuth = admin:password@
+#--
+
+###
+# GET Main Page
+#
+GET {{Schema}}://{{Host}}:{{Port}}
+
+### Models
+###
+# GET Model
+# Gets a stored model
+GET {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/model/{{Model}}
+Content-Type: application/json
+Accept: application/json
+
+###
+# DELETE Model
+# Deletes a stored model
+DELETE {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/model/{{Model}}
+Content-Type: application/json
+Accept: application/json
+
+###
+# POST Model
+# Creates a stored model
+POST {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/model/{{Model}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name":"Something"
+}
+
+###
+# PUT Model
+# Replace a stored model
+PUT {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/model/{{Model}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name2":"Something3"
+}
+
+###
+# PATCH Model
+# Update a stored model
+PATCH {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/model/{{Model}}
+Content-Type: application/json
+Accept: application/json
+
+{
+   "name2":"Something3"
+}

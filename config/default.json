@@ -1,0 +1,13 @@
+{
+    "server":{
+        "port":3000,
+        "certs":{
+            "cert":"./certs/server.crt",
+            "key":"./certs/server.key",
+            "ca":"",
+            "passphrase":"changeme"
+        }
+    },
+    "adminUser":"",
+    "adminPassword":""
+}

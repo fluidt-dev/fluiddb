@@ -1,0 +1,13 @@
+{
+    "server":{
+        "port":"PORT",
+        "certs":{
+            "cert":"TLS_CERT",
+            "key":"TLS_KEY",
+            "ca":"TLS_CA",
+            "passphrase":"TLS_PASSPHRASE"
+        }
+    },
+    "adminUser":"ADMIN_USER",
+    "adminPassword":"ADMIN_PASSWORD"
+}
