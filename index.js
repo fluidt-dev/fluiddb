@@ -56,6 +56,11 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(bodyParser.json())
 
+app.use((req, res, next) => {
+  res.set('X-Powered-By', 'Fluiddb');
+  next();
+});
+
 app.get('/', (req, res) => {
   res.json({
     "name": package.name,
