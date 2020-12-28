@@ -5,9 +5,11 @@
             "cert":"./certs/server.crt",
             "key":"./certs/server.key",
             "ca":"",
-            "passphrase":""
-        }
+            "passphrase":"changeme"
+        },
+        "ignoreTLSError":false
     },
     "adminUser":"admin",
-    "adminPassword":"a1b2c3d4"
+    "adminPassword":"a1b2c3d4",
+    "logLevel":"INFO"
 }

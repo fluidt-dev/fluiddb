@@ -4,15 +4,23 @@
   "description": "A RESTFUL Key/Value Pair Data Store System",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node --no-deprecation index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Dan Abarbanel",
-  "license": "BSD-3",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fluidt-dev/fluiddb"
+  },
   "dependencies": {
     "@fluidt/logger": "^1.0.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "express-basic-auth": "^1.2.0"
+    "express-basic-auth": "^1.2.0",
+    "socket.io": "^3.0.4",
+    "socket.io-client": "^3.0.4",
+    "spdy": "^4.0.2"
   }
 }
