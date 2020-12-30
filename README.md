@@ -2,6 +2,9 @@
 ## What is FluidDB?
 FluidDB is a simple in memory key/value pair storage server which utilizies a RESTFUL API. 
 
+## API Documentation
+[Read the API Docs](./docs/API.md)
+
 ## Running FluidDB
 Using development configuration.
 ```

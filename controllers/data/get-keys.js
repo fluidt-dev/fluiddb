@@ -26,16 +26,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
-module.exports = {
-    /**
-     * Route Definition:
-     *  '[METHOD] [Endpoint]':'[controller file]'
-     */
-    'GET /data':'data/get-keys',
-    'GET /data/:key':'data/get-key',
-    'POST /data/:key':'data/post-key',
-    'DELETE /data/:key':'data/delete-key',
-    'PUT /data/:key':'data/put-key',
-    'PATCH /data/:key':'data/patch-key'
+const StorageService = require('../../services/storage')
+module.exports = (req, res) => {
+    let keys = StorageService.getKeys();
+    if(keys.length > 0){
+        return res.json(keys);
+    }
+    return res.status(404).json({ error: `no keys found.` });
 }

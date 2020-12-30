@@ -43,6 +43,13 @@ GET {{Schema}}://{{Host}}:{{Port}}
 ### Data Storage
 
 ###
+# GET data keys
+# Gets all keys in the storage.
+GET {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/data
+Content-Type: application/json
+Accept: application/json
+
+###
 # POST data
 # Creates a stored model
 POST {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/data/{{Model}}

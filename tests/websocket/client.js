@@ -36,6 +36,11 @@ setTimeout(() => {
 }, 4000);
 
 setTimeout(() => { 
+  console.log("Testing GET keys");
+  socket.emit('http message', {'auth': { 'username': 'admin', 'password': 'a1b2c3d4' },'url':"/data", 'method':"GET" })
+}, 4000);
+
+setTimeout(() => { 
   console.log("Testing DELETE");
   socket.emit('http message', {'auth': { 'username': 'admin', 'password': 'a1b2c3d4' },'url':"/data/test", 'method':"DELETE" })
 }, 5000);

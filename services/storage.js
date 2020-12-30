@@ -37,6 +37,9 @@ const methods = {
     get: (key) => {
         return storage[key]
     },
+    getKeys: () => {
+        return Object.keys(storage);
+    },
     create: (key, obj) => {
         storage[key] = obj
         return storage[key]
