@@ -2,6 +2,9 @@
 ## What is FluidDB?
 FluidDB is a simple in memory key/value pair storage server which utilizies a RESTFUL API. 
 
+## API Documentation
+[Read the API Docs](./docs/API.md)
+
 ## Running FluidDB
 Using development configuration.
 ```
@@ -21,15 +24,17 @@ NODE_ENV=production npm start
 ## Configuration
 
 ### Environment Variables
-| Variable       | Description                                  | Default Value      |
-|----------------|----------------------------------------------|--------------------|
-| PORT           | Server port to listen on.                    | 6375               |
-| TLS_CERT       | Path to Certificate file.                    | ./certs/server.crt |
-| TLS_KEY        | Path to Certficate key file.                 | ./certs/server.key |
-| TLS_CA         | Path to intermediate certficate              |                    |
-| TLS_PASSPHRASE | Passphrase used when generating Certificate. |                    |
-| ADMIN_USER     | Admin user used to access data endpoints     | admin              |
-| ADMIN_PASSWORD | Admin password used to access data endpoints | a1b2c3d4           |
+| Variable          | Description                                                    | Default Value      |
+|-------------------|----------------------------------------------------------------|--------------------|
+| PORT              | Server port to listen on.                                      | 6375               |
+| TLS_CERT          | Path to Certificate file.                                      | ./certs/server.crt |
+| TLS_KEY           | Path to Certficate key file.                                   | ./certs/server.key |
+| TLS_CA            | Path to intermediate certficate                                |                    |
+| TLS_PASSPHRASE    | Passphrase used when generating Certificate.                   |                    |
+| IGNORE_TLS_ERRORS | Allows server to communicate while ignoring certificate errors | false              |
+| ADMIN_USER        | Admin user used to access data endpoints                       | admin              |
+| ADMIN_PASSWORD    | Admin password used to access data endpoints                   | a1b2c3d4           |
+
 
 ## Running with TLS
 ### Generate Certificate and Key

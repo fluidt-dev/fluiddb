@@ -27,7 +27,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 const express    = require('express')
-const https      = require('https');
+const http       = require('http')
+const spdy       = require('spdy')
 const basicAuth  = require('express-basic-auth')
 const bodyParser = require('body-parser')
 const logger     = require('@fluidt/logger')
@@ -35,22 +36,32 @@ const config     = require('config')
 const fs         = require('fs')
 
 const app     = express()
-const models  = require('./routes/models')
-const package = require('./package.json')
+const routes  = require('./routes/route-loader')
+const ws      = require('./sockets/ws')
+const pkg     = require('./package.json')
 
 /** 
  * Configuration:
  *    - Variables
  *    - Setup 
  */
-const port       = config.get('server.port') || 3000;
-const serverCert = config.has('server.certs.cert') ? config.get('server.certs.cert') : './certs/server.crt';
-const serverKey  = config.has('server.certs.key') ? config.get('server.certs.key') : './certs/server.key';
-const passphrase = config.has('server.certs.passphrase') ? config.get('server.certs.passphrase') : '';
+const port           = config.get('server.port') || 3000;
+const serverCert     = config.has('server.certs.cert') ? config.get('server.certs.cert') : './certs/server.crt';
+const serverKey      = config.has('server.certs.key') ? config.get('server.certs.key') : './certs/server.key';
+const passphrase     = config.has('server.certs.passphrase') ? config.get('server.certs.passphrase') : '';
+const ignoreTLSError = config.has('server.ignoreTLSError') ? config.get('server.ignoreTLSError') : false;
+
 let users        = {};
 let serverConfig = {};
 let useHttps     = false;
+let environment = process.env.NODE_ENV || 'development';
 
+if(environment === 'development' || ignoreTLSError) {
+  //disable certificate validation
+  process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+}
+
+app.use(express.static("assets"));
 app.use(bodyParser.urlencoded({
   extended: true
 }))
@@ -63,11 +74,11 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => {
   res.json({
-    "name": package.name,
+    "name": pkg.name,
     "currentDateTime": new Date(),
-    "description": package.description,
-    "version": package.version,
-    "license": package.license
+    "description": pkg.description,
+    "version": pkg.version,
+    "license": pkg.license
   })
 })
 
@@ -81,11 +92,12 @@ if(config.has('adminUser') && config.get('adminUser') && config.has('adminPasswo
 if (Object.entries(users).length > 0) {
   app.use( basicAuth({ users: users }) )
 }
-app.use('/model', models);
+
+app.use(routes)
+
 /** End Security Setup */
 
 function startUpMessage(){
-  let environment = process.env.NODE_ENV || 'development';
   let schema = useHttps ? 'https' : 'http'
   logger.info(`-----[ Starting server in ${environment} mode. ]---------------------------`)
   logger.info(`  ___________.__        .__    .___________ __________   `)
@@ -94,7 +106,7 @@ function startUpMessage(){
   logger.info(`   |     \\   |  |_|  |  /  / /_/ |  |    \`   \\    |   \\ `)
   logger.info(`   \\___  /   |____/____/|__\\____ | /_______  /______  /  `)
   logger.info(`       \\/                       \\/         \\/       \\/   `)    
-  logger.info(`${package.name} v${package.version} is listening at ${schema}://localhost:${port}`)
+  logger.info(`${pkg.name} v${pkg.version} is listening at ${schema}://localhost:${port}`)
   logger.info(`-----------------------------------------------------------------------`)
 }
 
@@ -113,14 +125,19 @@ try {
 } catch(err) {
   console.error(err)
 }
-
+let server;
 if(useHttps){
-  https.createServer(serverConfig, app)
+  server = spdy.createServer(serverConfig, app)
   .listen(port, () => {
     startUpMessage();
   });
 } else {
-  app.listen(port, () => {
+  server = http.createServer(app)
+  .listen(port, () => {
     startUpMessage();
   });
 }
+/**
+ * Websocket Configuration
+ */
+let t = ws(server, useHttps?'https':'http', port);

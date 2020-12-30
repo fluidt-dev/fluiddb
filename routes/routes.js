@@ -26,42 +26,16 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-const logger = require('@fluidt/logger');
 
-const storage = {}
-
-const methods = {
-    exists: (key) => {
-        return !!storage[key]
-    },
-    get: (key) => {
-        return storage[key]
-    },
-    getKeys: () => {
-        return Object.keys(storage);
-    },
-    create: (key, obj) => {
-        storage[key] = obj
-        return storage[key]
-    },
-    delete: (key) => {
-        try {
-            delete storage[key];
-            return true;
-        } catch (e) {
-            logger.error(`There was problem deleting ${key}`);
-            return false;
-        }
-    },
-    replace: (key, obj) => {
-        storage[key] = obj
-        return storage[key]
-    },
-    update: (key, obj) => {
-        let updated = Object.assign(storage[key], obj);
-        storage[key] = updated;
-        return updated;
-    }
+module.exports = {
+    /**
+     * Route Definition:
+     *  '[METHOD] [Endpoint]':'[controller file]'
+     */
+    'GET /data':'data/get-keys',
+    'GET /data/:key':'data/get-key',
+    'POST /data/:key':'data/post-key',
+    'DELETE /data/:key':'data/delete-key',
+    'PUT /data/:key':'data/put-key',
+    'PATCH /data/:key':'data/patch-key'
 }
-
-module.exports = methods

@@ -6,8 +6,10 @@
             "key":"./certs/server.key",
             "ca":"",
             "passphrase":"changeme"
-        }
+        },
+        "ignoreTLSError":true
     },
     "adminUser":"",
-    "adminPassword":""
+    "adminPassword":"",
+    "logLevel":"DEBUG"
 }

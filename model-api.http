@@ -28,7 +28,7 @@
  #
 
 ### Variables
-@Schema = http
+@Schema = https
 @Host = localhost
 @Port = 6375
 @Model = test
@@ -40,50 +40,59 @@
 #
 GET {{Schema}}://{{Host}}:{{Port}}
 
-### Models
+### Data Storage
+
 ###
-# GET Model
+# GET data keys
+# Gets all keys in the storage.
+GET {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/data
+Content-Type: application/json
+Accept: application/json
+
+###
+# POST data
+# Creates a stored model
+POST {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/data/{{Model}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name":"object"
+}
+
+###
+# PUT data
+# Replace a stored model
+PUT {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/data/{{Model}}
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name":"object-put", 
+    "msg":"replaced"
+}
+
+###
+# PATCH data
+# Update a stored model
+PATCH {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/data/{{Model}}
+Content-Type: application/json
+Accept: application/json
+
+{
+   "msg":"updated"
+}
+
+###
+# GET data
 # Gets a stored model
-GET {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/model/{{Model}}
+GET {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/data/{{Model}}
 Content-Type: application/json
 Accept: application/json
 
 ###
 # DELETE Model
 # Deletes a stored model
-DELETE {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/model/{{Model}}
+DELETE {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/data/{{Model}}
 Content-Type: application/json
 Accept: application/json
-
-###
-# POST Model
-# Creates a stored model
-POST {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/model/{{Model}}
-Content-Type: application/json
-Accept: application/json
-
-{
-    "name":"Something"
-}
-
-###
-# PUT Model
-# Replace a stored model
-PUT {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/model/{{Model}}
-Content-Type: application/json
-Accept: application/json
-
-{
-    "name2":"Something3"
-}
-
-###
-# PATCH Model
-# Update a stored model
-PATCH {{Schema}}://{{BasicAuth}}{{Host}}:{{Port}}/model/{{Model}}
-Content-Type: application/json
-Accept: application/json
-
-{
-   "name2":"Something3"
-}

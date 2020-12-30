@@ -26,42 +26,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-const logger = require('@fluidt/logger');
-
-const storage = {}
-
-const methods = {
-    exists: (key) => {
-        return !!storage[key]
-    },
-    get: (key) => {
-        return storage[key]
-    },
-    getKeys: () => {
-        return Object.keys(storage);
-    },
-    create: (key, obj) => {
-        storage[key] = obj
-        return storage[key]
-    },
-    delete: (key) => {
-        try {
-            delete storage[key];
-            return true;
-        } catch (e) {
-            logger.error(`There was problem deleting ${key}`);
-            return false;
-        }
-    },
-    replace: (key, obj) => {
-        storage[key] = obj
-        return storage[key]
-    },
-    update: (key, obj) => {
-        let updated = Object.assign(storage[key], obj);
-        storage[key] = updated;
-        return updated;
+const StorageService = require('../../services/storage')
+module.exports = (req, res) => {
+    if (StorageService.exists(req.params.key)) {
+        StorageService.delete(req.params.key);
+        return res.status(204).send();
     }
+    return res.status(404).send({ error: `${req.params.key} not found.` });
 }
-
-module.exports = methods
