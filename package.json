@@ -1,6 +1,6 @@
 {
   "name": "fluiddb",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A RESTFUL Key/Value Pair Data Store System",
   "main": "index.js",
   "scripts": {
