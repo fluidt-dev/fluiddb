@@ -63,6 +63,30 @@ docker run -t --rm -p 6375:6375 fluiddb
 docker run -t --rm -p 6375:6375 fluidtdev/fluiddb:1.0.0-alpha
 ```
 
+## Interface with fluiddb using cli client
+Interface with fluiddb using the fluiddb cli client
+
+```
+node client/cli
+```
+
+### Example connecting to server in production mode.
+Start server in production mode:
+```
+$  docker run -t -e IGNORE_TLS_ERRORS=true -e ADMIN_USER=admin -e ADMIN_PASSWORD=a1b2c3d4 --rm -p 6375:6375 fluidtdev/fluiddb
+```
+
+Connect to server in production mode:
+```
+$ node client/cli
+Welcome to the fluiddb client. prese CTRL+C or type `quit` to exit.
+Type `help` for help.
+
+fluiddb> connect wss://localhost:6375 admin a1b2c3d4
+```
+type `help` for help.
+
+
 ## Code Contributions
 Note: By contributing code to the Fluiddb project in any form, including sending a pull request via Github, a code fragment or patch via private email or public discussion groups, you agree to release your code under the terms of the BSD license that you can find in the [LICENSE](./docs/LICENSE) file included in the Fluiddb source distribution.
 
