@@ -30,7 +30,7 @@
 ### Variables
 @Schema = https
 @Host = localhost
-@Port = 6375
+@Port = 3000
 @Model = test
 @BasicAuth = admin:a1b2c3d4@
 #--
